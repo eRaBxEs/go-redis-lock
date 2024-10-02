@@ -22,6 +22,10 @@ func acquireLock(client *redis.Client, lockKey string, timeout time.Duration) bo
 
 }
 
+func releaseLock(client *redis.Client, lockKey string){
+	ctx := context.Background()
+	client.Del(ctx, lockKey)
+
 func main() {
 	fmt.Println("Hello Redis Go Lock!")
 }
