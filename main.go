@@ -22,10 +22,16 @@ func acquireLock(client *redis.Client, lockKey string, timeout time.Duration) bo
 
 }
 
-func releaseLock(client *redis.Client, lockKey string){
+func releaseLock(client *redis.Client, lockKey string) {
 	ctx := context.Background()
 	client.Del(ctx, lockKey)
+}
 
 func main() {
-	fmt.Println("Hello Redis Go Lock!")
+	// Create a redis client
+	client := redis.NewClient(&redis.Options{
+		Addr: "localhost:6379",
+	})
+
+	defer client.Close()
 }
