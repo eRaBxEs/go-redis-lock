@@ -34,4 +34,22 @@ func main() {
 	})
 
 	defer client.Close()
+
+	// Define the lockKey and lockTimeout
+	lockKey := "my_lock"
+	lockTimeout := 20 * time.Second
+
+	if acquireLock(client, lockKey, lockTimeout) {
+		fmt.Println("Lock acquired successfully!")
+		// simulate some work with the lock
+		time.Sleep(20 * time.Second)
+		fmt.Println("Work Done!")
+
+		// release the lock to free resource
+		releaseLock(client, lockKey)
+		fmt.Println("Lock released!")
+	} else {
+		fmt.Println("Failed to acquire lock. The resource is already locked!")
+	}
+
 }
